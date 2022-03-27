@@ -9,5 +9,6 @@ app.use(express.json());
 app.use("/categories", categoriesRoute);
 app.use("/products", productsRoute);
 
+// setting port
 const port = process.env.port || 5000;
 app.listen(port, () => console.log(`Listening on port: ${port}`));
