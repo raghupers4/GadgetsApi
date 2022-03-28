@@ -1,34 +1,10 @@
-// Categories
-const categories = [
-  {
-    Id: 1001,
-    Name: "SmartPhones",
-  },
-  {
-    Id: 2001,
-    Name: "Laptops",
-  },
-  {
-    Id: 3001,
-    Name: "Desktops",
-  },
-  {
-    Id: 4001,
-    Name: "Tablets",
-  },
-  {
-    Id: 5001,
-    Name: "Watches",
-  },
-];
-
 const desktops = [
   {
     Id: "6B69F874465D4A0F8E43B569FF2EF570",
     Name: "HP All-in-One Desktop PC - Snow White",
     Make: "HP",
     Desc: "Intel Pentium Gold G6400T/1TB HDD/8GB RAM/Windows 10",
-    Price: "$749",
+    Price: 749.99,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/145/14586/14586899.jpg",
     TotalReviews: 44,
@@ -40,7 +16,7 @@ const desktops = [
     Name: "Dell OptiPlex 7020 SFF Desktop Computer",
     Make: "Dell",
     Desc: " Intel Core i5-4570 Processor 3.20 GHz 8GB RAM 256GB SSD Windows 10 Pro WiFi",
-    Price: "$379",
+    Price: 379,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/153/15308/15308778.jpeg",
     TotalReviews: 38,
@@ -52,7 +28,7 @@ const desktops = [
     Name: "Lenovo IdeaCentre All-in-One 3i 21.5 FHD Touch Desktop",
     Make: "Lenovo",
     Desc: "Intel Core i5-10400T, UHD Graphics 630, 8GB RAM, 256GB SSD, Win 10 Home",
-    Price: "$829",
+    Price: 829.6,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/151/15147/15147143.jpeg",
     TotalReviews: 128,
@@ -64,7 +40,7 @@ const desktops = [
     Name: "HP ProDesk 600 G2 SFF Desktop Computer",
     Make: "HP",
     Desc: " Intel Core i5 6500@3.2GHz 16GB DDR4 RAM 256GB SSD Windows 10 Home Keyboard and Mice WiFi",
-    Price: "$420",
+    Price: 420,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15511/15511706.jpeg",
     TotalReviews: 11,
@@ -76,7 +52,7 @@ const desktops = [
     Name: "HP Compaq Elite 8100 Desktop Computer ",
     Make: "HP",
     Desc: "Intel Core i5, Windows 10 Pro + 22 LCD Monitor Monitor (Refurbished)",
-    Price: "$375",
+    Price: 375,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/147/14730/14730914.jpeg",
     TotalReviews: 166,
@@ -88,7 +64,7 @@ const desktops = [
     Name: "HP EliteDesk 800 G2 SFF Business Desktop ",
     Make: "HP",
     Desc: " Intel Core i5 6500@3.2GHz 16GB DDR4 RAM 512GB SSD Windows 10 Home Keyboard and Mice WiFi HDMI",
-    Price: "$585",
+    Price: 585,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15524/15524765.jpeg",
     TotalReviews: 54,
@@ -100,7 +76,7 @@ const desktops = [
     Name: "HP Z240 SFF Workstation Desktop Computer",
     Make: "HP",
     Desc: "Intel Core i7-6700 Processor 3.40 GHz 32GB RAM 1TB SSD Windows 10 Pro WiFi Refurbished",
-    Price: "$908",
+    Price: 899.99,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/153/15311/15311572.jpeg",
     TotalReviews: 26,
@@ -112,7 +88,7 @@ const desktops = [
     Name: "Dell Optiplex 5040 SFF Desktop Computer PC 24 Inch Monitor",
     Make: "Dell",
     Desc: "Intel Core i5 6500@3.4GHz 16GB DDR3 RAM 256GB SSD Windows 10 Home USB Keyboard Mice",
-    Price: "$419",
+    Price: 449,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/153/15319/15319348.jpeg",
     TotalReviews: 49,
@@ -127,7 +103,7 @@ const laptops = [
     Name: "Dell Inspiron 14",
     Make: "Dell",
     Desc: "Intel Core i7-11390H/512GB SSD/16GB RAM/Win11 Home 64-Bit",
-    Price: "$1199",
+    Price: 1199,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/157/15732/15732072.jpg",
     TotalReviews: 88,
@@ -139,7 +115,7 @@ const laptops = [
     Name: "HP 15.6 Laptop - Natural Silver",
     Make: "HP",
     Desc: "Intel Core i5-1135G7/1TB SSD/16GB RAM/Windows 10",
-    Price: "$999",
+    Price: 999,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/149/14960/14960571.jpg",
     TotalReviews: 110,
@@ -151,7 +127,7 @@ const laptops = [
     Name: "Lenovo IdeaPad 3 15.6 Laptop -Platinum Grey",
     Make: "Lenovo",
     Desc: "Intel Celeron N4020/256GB SSD/4GB RAM/Windows 11 Home",
-    Price: "$329",
+    Price: 329,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/156/15694/15694315.jpg",
     TotalReviews: 121,
@@ -163,7 +139,7 @@ const laptops = [
     Name: "Samsung Galaxy Book Go 14 Laptop - Silver",
     Make: "Samsung",
     Desc: "Snapdragon 7c Gen 2/128GB SSD/4GB RAM/Windows 11",
-    Price: "$299",
+    Price: 299,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/157/15736/15736356.jpg",
     TotalReviews: 48,
@@ -175,7 +151,7 @@ const laptops = [
     Name: "Microsoft Surface Laptop 4 Touchscreen 13.5 - Platinum",
     Make: "Microsoft",
     Desc: "AMD Ryzen 5 4680U/256GB SSD/8GB RAM",
-    Price: "$1099",
+    Price: 1099,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/153/15395/15395956.jpg",
     TotalReviews: 35,
@@ -187,7 +163,7 @@ const laptops = [
     Name: "Apple MacBook Air 13.3 w/ Touch ID (Fall 2020) - Space Grey",
     Make: "Apple",
     Desc: "Apple M1 Chip / 256GB SSD / 8GB RAM",
-    Price: "$1299",
+    Price: 1299,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/131/13185/13185968.jpeg",
     TotalReviews: 2102,
@@ -199,7 +175,7 @@ const laptops = [
     Name: "Apple MacBook Air 13",
     Make: "Apple",
     Desc: "Intel Core i5-5350U-1.8GHz / 8GB / 128GB SSD",
-    Price: "$499",
+    Price: 499.99,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/139/13963/13963769.jpeg",
     TotalReviews: 10,
@@ -211,7 +187,7 @@ const laptops = [
     Name: "Apple MacBook Pro 14 (2021)",
     Make: "Apple",
     Desc: "Apple M1 Pro Chip / 1TB SSD / 16GB RAM",
-    Price: "$3199",
+    Price: 3199,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/157/15776/15776879.jpg",
     TotalReviews: 150,
@@ -223,7 +199,7 @@ const laptops = [
     Name: "ASUS C523 15.6 Chromebook - Silver",
     Make: "Asus",
     Desc: "Intel Dual-Core Celeron N3350/64GB eMMC/4GB RAM/Chrome OS",
-    Price: "$229",
+    Price: 229,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/154/15453/15453589.jpg",
     TotalReviews: 75,
@@ -235,7 +211,7 @@ const laptops = [
     Name: "Acer Spin 713 13.5 2-in-1 Chromebook - Silver",
     Make: "Acer",
     Desc: "Intel Core i5-1135G7/256GB SSD/8GB RAM/Chrome OS",
-    Price: "$899",
+    Price: 899,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15531/15531115.jpg",
     TotalReviews: 90,
@@ -249,8 +225,8 @@ const smartphones = [
     Id: "5B6AFEC81FAE43DCA52521A63589E774",
     Name: "iPhone 11",
     Make: "Apple",
-    Desc: "Product desc",
-    Price: "$899",
+    Desc: `iPhone 11 desc`,
+    Price: 899,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/138/13897/13897259.jpg",
     TotalReviews: 500,
@@ -261,8 +237,8 @@ const smartphones = [
     Id: "B11BF6E9B7284FB2AC7AE937FA18602F",
     Name: "iPhone 12",
     Make: "Apple",
-    Desc: "Product desc",
-    Price: "$1299",
+    Desc: `iPhone 12 desc`,
+    Price: 999,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/154/15447/15447707.jpg",
     TotalReviews: 800,
@@ -273,8 +249,8 @@ const smartphones = [
     Id: "AF4D3FF6A83A48AAAF2B290276C2A9B5",
     Name: "iPhone 13",
     Make: "Apple",
-    Desc: "Product desc",
-    Price: "$1399",
+    Desc: `iPhone 13 desc`,
+    Price: 1199,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/160/16003/16003167.jpg",
     TotalReviews: 1000,
@@ -285,8 +261,8 @@ const smartphones = [
     Id: "F188C449CB02489A998488AD7DAC64D3",
     Name: "iPhone 13 Pro",
     Make: "Apple",
-    Desc: "Product desc",
-    Price: "$1399",
+    Desc: `iPhone 13 Pro desc`,
+    Price: 1299,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/157/15727/15727277.jpg",
     TotalReviews: 1200,
@@ -297,8 +273,8 @@ const smartphones = [
     Id: "360CFA372E684881A12B590A2C55241F",
     Name: "Samsung Galaxy S22 Ultra",
     Make: "Samsung",
-    Desc: "Product desc",
-    Price: "$1599",
+    Desc: `Samsung Galaxy S22 Ultra desc`,
+    Price: 649,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15963/15963307.jpg",
     TotalReviews: 560,
@@ -309,8 +285,8 @@ const smartphones = [
     Id: "01EA471C74044B9BB3323B765836FF15",
     Name: "Samsung Galaxy S21",
     Make: "Samsung",
-    Desc: "Product desc",
-    Price: "$899",
+    Desc: `Samsung Galaxy S21 desc`,
+    Price: 799.49,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15922/15922471.jpg",
     TotalReviews: 840,
@@ -321,8 +297,8 @@ const smartphones = [
     Id: "002F3D38DA8642CC8D9DC86E8914D9E3",
     Name: "Google Pixel 6",
     Make: "Google",
-    Desc: "Product desc",
-    Price: "$799",
+    Desc: `Google Pixel 6 desc`,
+    Price: 599,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15922/15922527.jpeg",
     TotalReviews: 760,
@@ -333,8 +309,8 @@ const smartphones = [
     Id: "988C7AA3A91F45348C20B5746E504CFD",
     Name: "Samsung Galaxy Z Flip",
     Make: "Samsung",
-    Desc: "Product desc",
-    Price: "$1299",
+    Desc: "Samsung Galaxy Z Flip desc",
+    Price: 699,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/156/15634/15634218.jpg",
     TotalReviews: 260,
@@ -345,8 +321,8 @@ const smartphones = [
     Id: "5D0ED1F60BB440DEA08541A19C203425",
     Name: "Samsung Galaxy Z Fold3",
     Make: "Samsung",
-    Desc: "Product desc",
-    Price: "$1699",
+    Desc: "Samsung Galaxy Z Fold3 desc",
+    Price: 699,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/156/15634/15634188.jpg",
     TotalReviews: 540,
@@ -357,8 +333,8 @@ const smartphones = [
     Id: "40DA909F3FBB4E52B2569BB0CDA2B9E3",
     Name: "Motorola Moto G",
     Make: "Motorola",
-    Desc: "Product desc",
-    Price: "$499",
+    Desc: "Motorola Moto G desc",
+    Price: 499,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15952/15952673.jpg",
     TotalReviews: 1280,
@@ -373,7 +349,7 @@ const tablets = [
     Name: "Samsung Galaxy Tab A7",
     Make: "Samsung",
     Desc: "32GB Android Tablet with MediaTek MT8768T 8-Core Processor - Dark Grey",
-    Price: "$169",
+    Price: 169,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/154/15490/15490519.jpg",
     TotalReviews: 129,
@@ -385,7 +361,7 @@ const tablets = [
     Name: "Apple iPad 10.2",
     Make: "Apple",
     Desc: "64GB with Wi-Fi (9th Generation) - Space Grey",
-    Price: "$429",
+    Price: 429.99,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/157/15733/15733042.jpg",
     TotalReviews: 19,
@@ -397,7 +373,7 @@ const tablets = [
     Name: "Apple iPad Air 10.9",
     Make: "Apple",
     Desc: "64GB with Wi-Fi (5th Generation) - Space Grey",
-    Price: "$749",
+    Price: 749.49,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/160/16004/16004375.jpg",
     TotalReviews: 0,
@@ -409,7 +385,7 @@ const tablets = [
     Name: "Apple iPad Pro 11",
     Make: "Apple",
     Desc: "128GB with Wi-Fi (3rd Generation) - Space Grey",
-    Price: "$999",
+    Price: 999,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/154/15446/15446287.jpg",
     TotalReviews: 36,
@@ -421,7 +397,7 @@ const tablets = [
     Name: "Microsoft Surface Pro 8 13",
     Make: "Microsoft",
     Desc: "128GB Windows 11 Tablet with Intel Core i5-1135G7 - Platinum",
-    Price: "$1299",
+    Price: 1299,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/157/15740/15740348.jpg",
     TotalReviews: 119,
@@ -433,7 +409,7 @@ const tablets = [
     Name: "Apple iPad mini 8.3",
     Make: "Apple",
     Desc: "64GB with Wi-Fi (6th Generation) - Space Grey",
-    Price: "$649",
+    Price: 649,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/157/15733/15733135.jpg",
     TotalReviews: 15,
@@ -445,7 +421,7 @@ const tablets = [
     Name: "Amazon Fire 7",
     Make: "Amazon",
     Desc: "16GB FireOS 6 Tablet with MTK8163B Quad-Core Processor - Black",
-    Price: "$69",
+    Price: 69,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/135/13599/13599192.jpg",
     TotalReviews: 1254,
@@ -457,7 +433,7 @@ const tablets = [
     Name: "Samsung Galaxy Tab S6 Lite",
     Make: "Samsung",
     Desc: "64GB Android Tablet with Exynos 9611 8-Core Processor - Oxford Grey",
-    Price: "$429",
+    Price: 429,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/145/14584/14584045.jpg",
     TotalReviews: 365,
@@ -469,7 +445,7 @@ const tablets = [
     Name: "Lenovo Smart Tab M10",
     Make: "Lenovo",
     Desc: "32GB Android Tablet w/ MediaTek Helio P22T Processor - Grey",
-    Price: "$189",
+    Price: 189,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/145/14584/14584045.jpg",
     TotalReviews: 58,
@@ -481,7 +457,7 @@ const tablets = [
     Name: "Lenovo Tab P11 11",
     Make: "Lenovo",
     Desc: "128GB Android 11 Tablet w/ MediaTek Helio G90T Processor - Slate",
-    Price: "$399",
+    Price: 399,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/158/15805/15805403.jpg",
     TotalReviews: 16,
@@ -493,12 +469,36 @@ const tablets = [
     Name: "Samsung Galaxy Tab S8",
     Make: "Samsung",
     Desc: "128GB Android 11 Tablet w/ Qualcomm SM8450 8-Core Processor - Pink Gold",
-    Price: "$899",
+    Price: 899,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/145/14584/14584045.jpg",
     TotalReviews: 147,
     AvgRating: 4.1,
     CategoryId: 4001,
+  },
+];
+
+// Categories
+const categories = [
+  {
+    Id: 1001,
+    Name: "SmartPhones",
+    Items: smartphones,
+  },
+  {
+    Id: 2001,
+    Name: "Laptops",
+    Items: laptops,
+  },
+  {
+    Id: 3001,
+    Name: "Desktops",
+    Items: desktops,
+  },
+  {
+    Id: 4001,
+    Name: "Tablets",
+    Items: tablets,
   },
 ];
 
