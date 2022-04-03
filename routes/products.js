@@ -4,6 +4,7 @@ const router = express.Router();
 
 const { products } = data;
 
+// comment added
 router.get("/", (req, res) => {
   try {
     const query = req.query;
