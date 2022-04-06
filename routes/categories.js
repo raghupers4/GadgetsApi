@@ -9,7 +9,7 @@ router.get("/", (req, res) => {
     const query = req.query;
     if (query && Object.keys(query).length > 0) {
       const filteredCategory = categories.filter(
-        (cat) => cat.Id === Number(query.Id)
+        (cat) => cat.CategoryId === Number(query.Id)
       );
       if (filteredCategory.length > 0) {
         res.status(200).send(filteredCategory);
@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   try {
     const id = Number(req.params.id);
-    const filteredCategory = categories.filter((cat) => cat.Id === id);
+    const filteredCategory = categories.filter((cat) => cat.CategoryId === id);
     if (filteredCategory.length > 0) {
       res.status(200).send(filteredCategory);
     } else {
