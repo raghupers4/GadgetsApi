@@ -485,28 +485,24 @@ const categories = [
     Name: "SmartPhones",
     ImageUrl:
       "https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/blt491cd49955655776/61a1863347db93765d910037/bbym-evergreen-offer-unlocked-m.jpg?width=1800&quality=80&auto=webp",
-    Items: smartphones,
   },
   {
     CategoryId: 2001,
     Name: "Laptops",
     ImageUrl:
       "https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/bltad02379eb78e9028/5e28a49463d1b6503160ee40/computing-evergreen-category-icon-laptops.jpg?width=250&quality=80&auto=webp",
-    Items: laptops,
   },
   {
     CategoryId: 3001,
     Name: "Desktops",
     ImageUrl:
       "https://merchandising-assets.bestbuy.ca/bltc8653f66842bff7f/blt77b27294b5c07f31/5d9f83ee0767ca0e800b06fa/computing-evergreen-icon-pc-gaming.jpg?width=250&quality=80&auto=webp",
-    Items: desktops,
   },
   {
     CategoryId: 4001,
     Name: "Tablets",
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/160/16004/16004367.jpg",
-    Items: tablets,
   },
 ];
 
