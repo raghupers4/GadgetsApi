@@ -22,7 +22,15 @@ router.get("/", (req, res) => {
             prod[key] === Number(query[key])
           ) {
             return true;
+          } else if (
+            typeof prod[key] === "boolean" &&
+            !isNaN(query[key]) &&
+            (Number(query[key]) === 0 || Number(query[key]) === 1) &&
+            prod[key] === Boolean(Number(query[key]))
+          ) {
+            return true;
           }
+
           return false;
         });
       }

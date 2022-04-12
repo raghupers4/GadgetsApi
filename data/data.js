@@ -10,6 +10,8 @@ const desktops = [
     TotalReviews: 44,
     AvgRating: 2.8,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "FCBB5A1EA5144D66AF0F3C59D78CBD0F",
@@ -22,6 +24,8 @@ const desktops = [
     TotalReviews: 38,
     AvgRating: 3.6,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "0B0BE97F9ED84803A9918B70EAA41560",
@@ -34,6 +38,8 @@ const desktops = [
     TotalReviews: 128,
     AvgRating: 4.5,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "AACFD02953534CF7A4B5F3700387A782",
@@ -46,6 +52,8 @@ const desktops = [
     TotalReviews: 11,
     AvgRating: 4.2,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "D368E46D277E45FA9221A7CB84AA4262",
@@ -58,6 +66,8 @@ const desktops = [
     TotalReviews: 166,
     AvgRating: 4.1,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "AECDEA93CA4140EC877ED727936DD3A2",
@@ -70,6 +80,8 @@ const desktops = [
     TotalReviews: 54,
     AvgRating: 4.1,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "8ADF7E77BC564FE3B02F2C157683313D",
@@ -82,6 +94,8 @@ const desktops = [
     TotalReviews: 26,
     AvgRating: 4.0,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "AECDEA93CA4140EC877ED727936DD3A2",
@@ -94,6 +108,8 @@ const desktops = [
     TotalReviews: 49,
     AvgRating: 3.4,
     CategoryId: 3001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
 ];
 
@@ -109,6 +125,8 @@ const laptops = [
     TotalReviews: 88,
     AvgRating: 4.8,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "2F3BC528F4D7464A88B59967CE7732FB",
@@ -121,6 +139,8 @@ const laptops = [
     TotalReviews: 110,
     AvgRating: 4.6,
     CategoryId: 2001,
+    IsDiscounted: true,
+    DiscountedPrice: 599,
   },
   {
     Id: "004ECC6F44064E6391C488B20358D4E4",
@@ -133,6 +153,8 @@ const laptops = [
     TotalReviews: 121,
     AvgRating: 4.2,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "B50E8AB004E74EAD8E2E69A020535C5B",
@@ -145,6 +167,8 @@ const laptops = [
     TotalReviews: 48,
     AvgRating: 4.2,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "7B85FAC4CEDA4578832DB31C2D6BFAF1",
@@ -157,6 +181,8 @@ const laptops = [
     TotalReviews: 35,
     AvgRating: 4.4,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "77467F4C955D4EB49AACD9FB6DB12BFF",
@@ -169,6 +195,8 @@ const laptops = [
     TotalReviews: 2102,
     AvgRating: 4.3,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "C2939F2F6FE34390AC6D93A2329454D1",
@@ -181,6 +209,8 @@ const laptops = [
     TotalReviews: 10,
     AvgRating: 4.1,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "F119989D9098492CAB9BF88122E4EA5A",
@@ -193,6 +223,8 @@ const laptops = [
     TotalReviews: 150,
     AvgRating: 4.4,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "E91EC74F06A74984A51C8E51A3DA227C",
@@ -205,6 +237,8 @@ const laptops = [
     TotalReviews: 75,
     AvgRating: 4.2,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "2CD49CAA1A524B13BDDFC55373B90C62",
@@ -217,6 +251,8 @@ const laptops = [
     TotalReviews: 90,
     AvgRating: 4.0,
     CategoryId: 2001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
 ];
 
@@ -232,6 +268,8 @@ const smartphones = [
     TotalReviews: 500,
     AvgRating: 4.8,
     CategoryId: 1001,
+    IsDiscounted: true,
+    DiscountedPrice: 699,
   },
   {
     Id: "B11BF6E9B7284FB2AC7AE937FA18602F",
@@ -243,7 +281,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/154/15447/15447707.jpg",
     TotalReviews: 800,
     AvgRating: 4.6,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "AF4D3FF6A83A48AAAF2B290276C2A9B5",
@@ -255,7 +295,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/160/16003/16003167.jpg",
     TotalReviews: 1000,
     AvgRating: 4.9,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "F188C449CB02489A998488AD7DAC64D3",
@@ -267,7 +309,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/157/15727/15727277.jpg",
     TotalReviews: 1200,
     AvgRating: 4.7,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "360CFA372E684881A12B590A2C55241F",
@@ -279,7 +323,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15963/15963307.jpg",
     TotalReviews: 560,
     AvgRating: 4.4,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "01EA471C74044B9BB3323B765836FF15",
@@ -291,7 +337,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15922/15922471.jpg",
     TotalReviews: 840,
     AvgRating: 4.1,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "002F3D38DA8642CC8D9DC86E8914D9E3",
@@ -303,7 +351,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15922/15922527.jpeg",
     TotalReviews: 760,
     AvgRating: 3.8,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "988C7AA3A91F45348C20B5746E504CFD",
@@ -315,7 +365,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/156/15634/15634218.jpg",
     TotalReviews: 260,
     AvgRating: 4.4,
-    Category: 1001,
+    CategorId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "5D0ED1F60BB440DEA08541A19C203425",
@@ -327,7 +379,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/156/15634/15634188.jpg",
     TotalReviews: 540,
     AvgRating: 4.6,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "40DA909F3FBB4E52B2569BB0CDA2B9E3",
@@ -339,7 +393,9 @@ const smartphones = [
       "https://multimedia.bbycastatic.ca/multimedia/products/250x250/159/15952/15952673.jpg",
     TotalReviews: 1280,
     AvgRating: 4.2,
-    Category: 1001,
+    CategoryId: 1001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
 ];
 
@@ -355,6 +411,8 @@ const tablets = [
     TotalReviews: 129,
     AvgRating: 3.8,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "D4B7AD4D82AD4654812DA7BE6C688E81",
@@ -367,6 +425,8 @@ const tablets = [
     TotalReviews: 19,
     AvgRating: 4.5,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "600972FC47C2465BB12147E895BF39E9",
@@ -379,6 +439,8 @@ const tablets = [
     TotalReviews: 0,
     AvgRating: 0,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "07F9FAB89D8145829ADC0AB67AD40CD4",
@@ -391,6 +453,8 @@ const tablets = [
     TotalReviews: 36,
     AvgRating: 4.1,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "ECB005C4E45847169ED9DCD80EF6D418",
@@ -403,6 +467,8 @@ const tablets = [
     TotalReviews: 119,
     AvgRating: 4.3,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "708F0A4713814BCFABC554B9C8514B28",
@@ -415,6 +481,8 @@ const tablets = [
     TotalReviews: 15,
     AvgRating: 4.9,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "DDD7F00097E04CFBBFB2283AE45AC5D4",
@@ -427,6 +495,8 @@ const tablets = [
     TotalReviews: 1254,
     AvgRating: 4.6,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "2635280B424B41799E67D3C78B801562",
@@ -439,6 +509,8 @@ const tablets = [
     TotalReviews: 365,
     AvgRating: 4.1,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "60DAA298790A4013937C17D81BCA4FDD",
@@ -451,6 +523,8 @@ const tablets = [
     TotalReviews: 58,
     AvgRating: 4.8,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "9BDC326E23874177945453D12F19D47A",
@@ -463,6 +537,8 @@ const tablets = [
     TotalReviews: 16,
     AvgRating: 3.6,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
   {
     Id: "53EE4665B73F441F8679DD9D52563153",
@@ -475,6 +551,8 @@ const tablets = [
     TotalReviews: 147,
     AvgRating: 4.1,
     CategoryId: 4001,
+    IsDiscounted: false,
+    DiscountedPrice: 0,
   },
 ];
 
