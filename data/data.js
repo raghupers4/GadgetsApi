@@ -80,8 +80,8 @@ const desktops = [
     TotalReviews: 54,
     AvgRating: 4.1,
     CategoryId: 3001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 399,
   },
   {
     Id: "8ADF7E77BC564FE3B02F2C157683313D",
@@ -251,8 +251,8 @@ const laptops = [
     TotalReviews: 90,
     AvgRating: 4.0,
     CategoryId: 2001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 699,
   },
 ];
 
@@ -366,8 +366,8 @@ const smartphones = [
     TotalReviews: 260,
     AvgRating: 4.4,
     CategorId: 1001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 499,
   },
   {
     Id: "5D0ED1F60BB440DEA08541A19C203425",
@@ -411,8 +411,8 @@ const tablets = [
     TotalReviews: 129,
     AvgRating: 3.8,
     CategoryId: 4001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 119,
   },
   {
     Id: "D4B7AD4D82AD4654812DA7BE6C688E81",
@@ -467,8 +467,8 @@ const tablets = [
     TotalReviews: 119,
     AvgRating: 4.3,
     CategoryId: 4001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 999,
   },
   {
     Id: "708F0A4713814BCFABC554B9C8514B28",
