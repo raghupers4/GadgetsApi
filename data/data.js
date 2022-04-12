@@ -10,8 +10,8 @@ const desktops = [
     TotalReviews: 44,
     AvgRating: 2.8,
     CategoryId: 3001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 699,
   },
   {
     Id: "FCBB5A1EA5144D66AF0F3C59D78CBD0F",
@@ -73,7 +73,7 @@ const desktops = [
     Id: "AECDEA93CA4140EC877ED727936DD3A2",
     Name: "HP EliteDesk 800 G2 SFF Business Desktop ",
     Make: "HP",
-    Desc: " Intel Core i5 6500@3.2GHz 16GB DDR4 RAM 512GB SSD Windows 10 Home Keyboard and Mice WiFi HDMI",
+    Desc: "Intel Core i5 6500@3.2GHz 16GB DDR4 RAM 512GB SSD Windows 10 Home Keyboard and Mice WiFi HDMI",
     Price: 585,
     ImageUrl:
       "https://multimedia.bbycastatic.ca/multimedia/products/500x500/155/15524/15524765.jpeg",
@@ -108,8 +108,8 @@ const desktops = [
     TotalReviews: 49,
     AvgRating: 3.4,
     CategoryId: 3001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 399,
   },
 ];
 
@@ -195,8 +195,8 @@ const laptops = [
     TotalReviews: 2102,
     AvgRating: 4.3,
     CategoryId: 2001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 799,
   },
   {
     Id: "C2939F2F6FE34390AC6D93A2329454D1",
@@ -324,8 +324,8 @@ const smartphones = [
     TotalReviews: 560,
     AvgRating: 4.4,
     CategoryId: 1001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 499,
   },
   {
     Id: "01EA471C74044B9BB3323B765836FF15",
@@ -352,8 +352,8 @@ const smartphones = [
     TotalReviews: 760,
     AvgRating: 3.8,
     CategoryId: 1001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 449,
   },
   {
     Id: "988C7AA3A91F45348C20B5746E504CFD",
@@ -439,8 +439,8 @@ const tablets = [
     TotalReviews: 0,
     AvgRating: 0,
     CategoryId: 4001,
-    IsDiscounted: false,
-    DiscountedPrice: 0,
+    IsDiscounted: true,
+    DiscountedPrice: 569,
   },
   {
     Id: "07F9FAB89D8145829ADC0AB67AD40CD4",
