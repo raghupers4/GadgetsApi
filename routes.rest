@@ -1,0 +1,83 @@
+GET http://localhost:8000/products
+
+###
+
+GET http://localhost:8000/products?Make=Apple
+
+###
+
+GET http://localhost:8000/Users
+
+###
+
+POST http://localhost:8000/Users
+Content-Type: application/json
+
+{
+    "name": "raghuma5",
+    "email": "raghu.pers5@gmail.com",
+    "password": "raghu123",
+    "address": "456 Canada",
+    "phonenum": 123456,
+    "paymentcard": 123457890123456 
+}
+
+###
+
+GET http://localhost:8000/Users/6275945775f9b944bf0df663
+ 
+###
+
+PUT http://localhost:8000/Users/6275945775f9b944bf0df663
+Content-Type: application/json
+
+{
+    "name": "ram",
+    "password": "456",
+}
+
+###
+
+PATCH http://localhost:8000/Users/6275945775f9b944bf0df663
+Content-Type: application/json
+
+{
+    "name": "ram",
+    "password": "456",
+}
+
+###
+
+GET http://localhost:8000/Users/Cart
+
+###
+
+POST http://localhost:8000/Users/Cart
+Content-Type: application/json
+
+{
+    "productId": "5B6AFEC81FAE43DCA52521A63589E774",
+    "quantity": 2,
+    "user": "62759eb2cb435df520b9c8cd"
+}
+
+###
+
+GET http://localhost:8000/Users/Orders
+
+###
+
+POST http://localhost:8000/Users/Orders
+Content-Type: application/json
+
+{
+    "productId": "7EC779AC163743B59BF9211E6045661A",
+    "paymentMethod": "card",
+    "total": "100.2",
+    "isCancelled": false,
+    "shippingAddress": "456 Canada",
+    "user": "62759eb2cb435df520b9c8cd"
+}
+
+###
+
