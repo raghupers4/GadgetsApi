@@ -70,7 +70,7 @@ const desktops = [
     DiscountedPrice: 0,
   },
   {
-    Id: "AECDEA93CA4140EC877ED727936DD3A2",
+    Id: "399D0B2FEB274975A05E98FF3472DDEA",
     Name: "HP EliteDesk 800 G2 SFF Business Desktop ",
     Make: "HP",
     Desc: "Intel Core i5 6500@3.2GHz 16GB DDR4 RAM 512GB SSD Windows 10 Home Keyboard and Mice WiFi HDMI",
