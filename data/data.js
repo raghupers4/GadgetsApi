@@ -1,3 +1,11 @@
+function randomDate(start, end) {
+  const date1 = new Date(
+    start.getTime() + Math.random() * (end.getTime() - start.getTime())
+  );
+
+  return `${date1.getMonth() + 1}/${date1.getDate()}/${date1.getFullYear()}`;
+}
+
 const desktops = [
   {
     Id: "6B69F874465D4A0F8E43B569FF2EF570",
@@ -584,6 +592,121 @@ const categories = [
   },
 ];
 
+// Reviews
+const productreviews = [
+  {
+    ProductId: "5B6AFEC81FAE43DCA52521A63589E774",
+    reviews: [
+      {
+        username: "Raghu",
+        rating: 5,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+        header: "Best product ever!!!",
+        comments:
+          "Cillum velit proident adipisicing do consequat reprehenderit quis magna ullamco. Nulla sunt do excepteur amet voluptate amet dolor. Enim consectetur ea amet dolore laborum pariatur nulla consectetur ut laboris et veniam. Ullamco occaecat cillum veniam laborum ullamco. Lorem sunt irure exercitation voluptate minim labore consequat ut.",
+      },
+      {
+        username: "Ram",
+        rating: 4.5,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Good product",
+        comments:
+          "Do est aliqua tempor non magna id quis dolor irure mollit irure eu enim. Tempor adipisicing dolor reprehenderit nostrud sunt mollit. Occaecat commodo aliqua ut duis nulla fugiat proident.",
+      },
+      {
+        username: "Krishna",
+        rating: 4.1,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Best product from Apple again",
+        comments:
+          "Et ut non incididunt aliquip cillum irure eu sunt ipsum in consectetur. Ea aliquip pariatur nisi quis. Et amet ipsum et officia ipsum do aliqua ex sint culpa.",
+      },
+      {
+        username: "Jana",
+        rating: 3.5,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Packaging was not good",
+        comments:
+          "Et dolor consectetur dolore proident commodo dolore eiusmod. Velit nostrud non aliquip nulla sit aute do qui ut sint ipsum. Sunt nulla consectetur aute elit. Veniam Lorem cillum pariatur anim magna eu culpa id non labore aute. Consequat eiusmod dolor eiusmod labore ad. Tempor sint est pariatur quis dolor laborum irure elit proident.",
+      },
+    ],
+  },
+  {
+    ProductId: "B11BF6E9B7284FB2AC7AE937FA18602F",
+    reviews: [
+      {
+        username: "Prashant",
+        rating: 4.9,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+        header: "Best product ever!!!",
+        comments:
+          "Cillum velit proident adipisicing do consequat reprehenderit quis magna ullamco. Nulla sunt do excepteur amet voluptate amet dolor. Enim consectetur ea amet dolore laborum pariatur nulla consectetur ut laboris et veniam. Ullamco occaecat cillum veniam laborum ullamco. Lorem sunt irure exercitation voluptate minim labore consequat ut.",
+      },
+      {
+        username: "Arun",
+        rating: 4.2,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Good product",
+        comments:
+          "Do est aliqua tempor non magna id quis dolor irure mollit irure eu enim. Tempor adipisicing dolor reprehenderit nostrud sunt mollit. Occaecat commodo aliqua ut duis nulla fugiat proident.",
+      },
+      {
+        username: "Santosh",
+        rating: 3.8,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Best product from Apple again",
+        comments:
+          "Et ut non incididunt aliquip cillum irure eu sunt ipsum in consectetur. Ea aliquip pariatur nisi quis. Et amet ipsum et officia ipsum do aliqua ex sint culpa.",
+      },
+      {
+        username: "Mahendra",
+        rating: 4.5,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Would recommend",
+        comments:
+          "Et dolor consectetur dolore proident commodo dolore eiusmod. Velit nostrud non aliquip nulla sit aute do qui ut sint ipsum. Sunt nulla consectetur aute elit. Veniam Lorem cillum pariatur anim magna eu culpa id non labore aute. Consequat eiusmod dolor eiusmod labore ad. Tempor sint est pariatur quis dolor laborum irure elit proident.",
+      },
+    ],
+  },
+  {
+    ProductId: "360CFA372E684881A12B590A2C55241F",
+    reviews: [
+      {
+        username: "Diwakar",
+        rating: 4.2,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+        header: "Best Camera",
+        comments:
+          "Cillum velit proident adipisicing do consequat reprehenderit quis magna ullamco. Nulla sunt do excepteur amet voluptate amet dolor. Enim consectetur ea amet dolore laborum pariatur nulla consectetur ut laboris et veniam. Ullamco occaecat cillum veniam laborum ullamco. Lorem sunt irure exercitation voluptate minim labore consequat ut.",
+      },
+      {
+        username: "Ravi",
+        rating: 3.9,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Good display",
+        comments:
+          "Do est aliqua tempor non magna id quis dolor irure mollit irure eu enim. Tempor adipisicing dolor reprehenderit nostrud sunt mollit. Occaecat commodo aliqua ut duis nulla fugiat proident.",
+      },
+      {
+        username: "Raju",
+        rating: 3.5,
+        revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
+
+        header: "Volume is not good",
+        comments:
+          "Et ut non incididunt aliquip cillum irure eu sunt ipsum in consectetur. Ea aliquip pariatur nisi quis. Et amet ipsum et officia ipsum do aliqua ex sint culpa.",
+      },
+    ],
+  },
+];
+
 const products = [...laptops, ...smartphones, ...desktops, ...tablets];
 
-module.exports = { products, categories };
+module.exports = { products, categories, productreviews };

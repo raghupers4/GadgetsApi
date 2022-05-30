@@ -5,6 +5,7 @@ const bodyParser = require("body-parser");
 const categoriesRoute = require("./routes/categories");
 const productsRoute = require("./routes/products");
 const usersRoute = require("./routes/users");
+const reviewsRoute = require("./routes/reviews");
 const app = express();
 
 // to parse the JSON sent through POST requests from the client
@@ -22,6 +23,7 @@ db.once("open", () => console.log("Database connection established"));
 app.use("/categories", categoriesRoute);
 app.use("/products", productsRoute);
 app.use("/users", usersRoute);
+app.use("/reviews", reviewsRoute);
 
 // setting port
 const port = process.env.PORT || 8000;
