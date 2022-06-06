@@ -689,7 +689,6 @@ const productreviews = [
         username: "Ravi",
         rating: 3.9,
         revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
-
         header: "Good display",
         comments:
           "Do est aliqua tempor non magna id quis dolor irure mollit irure eu enim. Tempor adipisicing dolor reprehenderit nostrud sunt mollit. Occaecat commodo aliqua ut duis nulla fugiat proident.",
@@ -698,7 +697,6 @@ const productreviews = [
         username: "Raju",
         rating: 3.5,
         revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
-
         header: "Volume is not good",
         comments:
           "Et ut non incididunt aliquip cillum irure eu sunt ipsum in consectetur. Ea aliquip pariatur nisi quis. Et amet ipsum et officia ipsum do aliqua ex sint culpa.",
