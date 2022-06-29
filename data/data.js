@@ -609,7 +609,6 @@ const productreviews = [
         username: "Ram",
         rating: 4.5,
         revieweddate: randomDate(new Date(2017, 9, 1), new Date()),
-
         header: "Good product",
         comments:
           "Do est aliqua tempor non magna id quis dolor irure mollit irure eu enim. Tempor adipisicing dolor reprehenderit nostrud sunt mollit. Occaecat commodo aliqua ut duis nulla fugiat proident.",

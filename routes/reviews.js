@@ -14,7 +14,7 @@ router.get("/:productid", (req, res) => {
       if (prodReviews?.reviews) {
         res.status(200).json(prodReviews.reviews);
       } else {
-        res.status(400).json({ message: "No reviews found for this product" });
+        res.status(200).json({ message: "No reviews found for this product" });
       }
     }
   } catch (err) {

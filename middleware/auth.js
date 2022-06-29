@@ -4,8 +4,8 @@ const jwt = require("jsonwebtoken");
 function verifyToken(req, res, next) {
   let header;
   let accessToken;
-  if (req.headers && req.headers["authorization".toLowerCase()]) {
-    header = req.headers["authorization".toLowerCase()];
+  if (req.headers && req.headers["authorization"]) {
+    header = req.headers["authorization"];
     accessToken = header && header.split(" ")[1];
   } else {
     accessToken = req.headers["x-access-token"];
