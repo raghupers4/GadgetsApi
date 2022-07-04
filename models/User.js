@@ -22,7 +22,7 @@ const UserSchema = new Schema({
     length: 10,
   },
   address: {
-    type: String,
+    type: Object,
     default: "",
   },
   paymentcard: {

@@ -6,6 +6,18 @@ const CartItemSchema = new Schema({
     type: String,
     required: true,
   },
+  productName: {
+    type: String,
+    required: true,
+  },
+  imageUrl: {
+    type: String,
+    required: true,
+  },
+  productPrice: {
+    type: Number,
+    required: true,
+  },
   quantity: {
     type: Number,
     required: true,

@@ -25,6 +25,7 @@ const getUserPlacedOrders = async (user_id) => {
   const placedOrders = await Order.find({ user: user_id, isCancelled: false });
   return placedOrders || [];
 };
+
 const getUserCancelledOrders = async (user_id) => {
   const cancelledorders = await Order.find({
     user: user_id,
@@ -82,7 +83,7 @@ router.get("/:id", async (req, res, next) => {
 // POST route
 router.post("/register", async (req, res) => {
   try {
-    const { email } = req.body;
+    const { email, phonenum } = req.body;
     const existingUserWithSameEmail = await User.findOne({ email });
     if (existingUserWithSameEmail) {
       return res.status(409).json({
@@ -90,6 +91,14 @@ router.post("/register", async (req, res) => {
           "User already exists with the same email. Please login or create account with different email",
       });
     }
+    const existingUserWithSamePhoneNum = await User.findOne({ phonenum });
+    if (existingUserWithSamePhoneNum) {
+      return res.status(409).json({
+        message:
+          "This mobile number is already in use by another user. Please use different number.",
+      });
+    }
+
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const user = await User.create({
@@ -111,7 +120,7 @@ router.post("/register", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email });
+    let user = await User.findOne({ email });
     if (user) {
       // check password
       const isPasswordValid = await bcrypt.compare(password, user.password);
@@ -123,7 +132,11 @@ router.post("/login", async (req, res) => {
       if (!accessToken) {
         return res.status(500).json({ message: "Token not generated" });
       }
-      res.status(200).json({ message: "Login successful", accessToken });
+      const cartItems = await getUserCart(user._id);
+      user = user.toObject();
+      // no need of sending password back to the user
+      delete user["password"];
+      res.status(200).json({ user, accessToken, cartItems });
     } else {
       // Incorrect email id
       res.status(400).json({ message: "Invalid email id" });
@@ -142,13 +155,13 @@ const getUser = async (req, res, next) => {
   // a middle ware function that gets executed before the callback
   try {
     const user = await User.findById(req.params.id);
-    verifyToken();
     if (user === null) {
       return res
         .status(400)
         .json({ message: `Cannot find the user with id ${req.params.id}` });
     }
-    res.user = user;
+    verifyToken();
+    res.user = req.user;
   } catch (error) {
     return res.status(500).json({ message: error.message });
   }
@@ -220,13 +233,16 @@ const getCartItem = async (cartItemId) => {
 // POST cart route
 router.post("/cart", verifyToken, async (req, res) => {
   try {
-    const cart = new CartItem({
+    const cart = await CartItem.create({
       productId: req.body.productId,
+      productName: req.body.productName,
+      imageUrl: req.body.imageUrl,
+      productPrice: req.body.productPrice,
       quantity: req.body.quantity,
-      user: req.user.userid,
+      user: req.user.user_id,
     });
     await cart.save();
-    res.json(cart);
+    res.status(201).json(cart);
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -252,7 +268,7 @@ router.patch("/cart/:id", verifyToken, async (req, res) => {
 });
 
 // REMOVE cart route
-router.delete("/cart/:id", getCartItem, async (req, res) => {
+router.delete("/cart/:id", verifyToken, async (req, res) => {
   try {
     const cartItem = await getCartItem(req.params.id);
     if (cartItem === null) {
