@@ -1,5 +1,11 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
+const {
+  SUCCESS_STATUS_CODE,
+  UNAUTHORIZED_STATUS_CODE,
+  FORBIDDEN_STATUS_CODE,
+  BAD_REQUEST_STATUS_CODE,
+} = require("../constants/statuscodes");
 
 function verifyToken(req, res, next) {
   let header;
@@ -11,15 +17,17 @@ function verifyToken(req, res, next) {
     accessToken = header && header.split(" ")[1];
   }
   if (!accessToken) {
-    return res.status(403).json({ message: "Token is required" });
+    return res
+      .status(FORBIDDEN_STATUS_CODE)
+      .json({ message: "Token is required" });
   }
 
   jwt.verify(accessToken, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
     if (err) {
-      return res.status(401).json({ message: "Invalid token" });
+      return res
+        .status(BAD_REQUEST_STATUS_CODE)
+        .json({ message: "Invalid token" });
     }
-    console.log("Res email: " + user?.email);
-    console.log("Res id: " + user?.user_id);
     req.user = user;
     next();
   });

@@ -1,6 +1,25 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const addressSchema = new Schema({
+  addressLine: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  province: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+});
+
 const UserSchema = new Schema({
   name: {
     type: String,
@@ -15,19 +34,15 @@ const UserSchema = new Schema({
     type: String,
     required: true,
   },
-  phonenum: {
+  phoneNum: {
     type: Number,
     required: true,
     unique: true,
     length: 10,
   },
   address: {
-    type: Object,
-    default: "",
-  },
-  paymentcard: {
-    type: Number,
-    length: 16,
+    type: addressSchema,
+    required: true,
   },
 });
 
