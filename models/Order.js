@@ -1,44 +1,50 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const addressSchema = new Schema({
+  addressLine: {
+    type: String,
+    required: true,
+  },
+  city: {
+    type: String,
+    required: true,
+  },
+  province: {
+    type: String,
+    required: true,
+  },
+  postalCode: {
+    type: String,
+    required: true,
+  },
+});
+
 // Order schema
-const OrderSchema = new Schema({
-  productId: {
-    type: String,
-    required: true,
-  },
-  orderedDate: {
-    type: Date,
-    required: false,
-  },
-  paymentMethod: {
-    type: String,
-    required: true,
-  },
-  total: {
-    type: Number,
-    required: true,
-  },
-  isCancelled: {
-    type: Boolean,
-    default: false,
-  },
-  isReturned: {
-    type: Boolean,
-    default: false,
-  },
-  shippingAddress: {
-    type: String,
-  },
-  deliveredDate: {
-    type: Date,
-  },
+const orderSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
+  orderedDate: {
+    type: Date,
+    required: true,
+  },
+  paymentMethod: {
+    type: String,
+    required: true,
+    default: "credit card",
+  },
+  totalPrice: {
+    type: Number,
+    required: true,
+  },
+  shippingAddress: {
+    type: addressSchema,
+    required: true,
+  },
 });
 
-const OrderModel = mongoose.model("Order", OrderSchema);
-module.exports = OrderModel;
+const orderModel = mongoose.model("Order", orderSchema);
+module.exports = orderModel;
