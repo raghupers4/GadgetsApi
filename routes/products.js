@@ -1,74 +1,82 @@
 const express = require("express");
-const data = require("../data/data");
+const Product = require("../models/Product");
 const router = express.Router();
+const {
+  SUCCESS_STATUS_CODE,
+  BAD_REQUEST_STATUS_CODE,
+  INTERNAL_SERVER_ERROR_STATUS_CODE,
+} = require("../constants/statuscodes");
 
-const { products } = data;
-
-// comment added
-router.get("/", (req, res) => {
+router.get("/", async (req, res) => {
   try {
+    let products;
     const query = req.query;
     if (query && Object.keys(query).length > 0) {
-      let filteredProducts = [...products];
-      for (let key in query) {
-        filteredProducts = filteredProducts.filter((prod) => {
-          if (
-            typeof prod[key] === "string" &&
-            prod[key]?.toLowerCase() === query[key].toLowerCase()
-          ) {
-            return true;
-          } else if (
-            typeof prod[key] === "number" &&
-            prod[key] === Number(query[key])
-          ) {
-            return true;
-          } else if (
-            typeof prod[key] === "boolean" &&
-            !isNaN(query[key]) &&
-            (Number(query[key]) === 0 || Number(query[key]) === 1) &&
-            prod[key] === Boolean(Number(query[key]))
-          ) {
-            return true;
-          }
-
-          return false;
-        });
-      }
-      if (filteredProducts.length > 0) {
-        res.status(200).send(filteredProducts);
-      } else {
-        returnError(res);
-      }
+      // ?CategoryId=100 && IsDiscounted=1 && make=Apple
+      products = await Product.find(req.query);
     } else {
-      res.status(200).send(products);
+      products = await Product.find();
+    }
+    if (products) {
+      res.status(SUCCESS_STATUS_CODE).json(products);
+    } else {
+      res.status(SUCCESS_STATUS_CODE).json([]);
+    }
+
+    // if (query && Object.keys(query).length > 0) {
+    //   let filteredProducts = [...products];
+    //   for (let key in query) {
+    //     filteredProducts = filteredProducts.filter((prod) => {
+    //       if (
+    //         typeof prod[key] === "string" &&
+    //         prod[key]?.toLowerCase() === query[key].toLowerCase()
+    //       ) {
+    //         return true;
+    //       } else if (
+    //         typeof prod[key] === "number" &&
+    //         prod[key] === Number(query[key])
+    //       ) {
+    //         return true;
+    //       } else if (
+    //         typeof prod[key] === "boolean" &&
+    //         !isNaN(query[key]) &&
+    //         (Number(query[key]) === 0 || Number(query[key]) === 1) &&
+    //         prod[key] === Boolean(Number(query[key]))
+    //       ) {
+    //         return true;
+    //       }
+
+    //       return false;
+    //     });
+    //   }
+    //   if (filteredProducts.length > 0) {
+    //     res.status(200).send(filteredProducts);
+    //   } else {
+    //     returnError(res);
+    //   }
+    // } else {
+    //   res.status(200).send(products);
+    // }
+  } catch (error) {
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ error: error?.message });
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      res.status(SUCCESS_STATUS_CODE).json(product);
+    } else {
+      res.status(SUCCESS_STATUS_CODE).json({});
     }
   } catch (error) {
-    res.status(400).send("Resource not found");
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ error: error?.message });
   }
 });
-
-const buildFilterQuery = (queryObj) => {
-  let filterQuery = {};
-  for (let prop in queryObj) {
-    if (queryObj[prop] !== undefined) {
-      const propType = typeof prop;
-      filterQuery["type"] = propType;
-      filterQuery[prop] = queryObj[prop];
-    }
-  }
-  return filterQuery;
-};
-
-router.get("/:id", (req, res) => {
-  const id = req.params.id;
-  const filteredProducts = products.filter((prod) => prod.Id === id);
-  if (filteredProducts.length > 0) {
-    res.status(200).send(filteredProducts);
-  } else {
-    returnError(res);
-  }
-});
-
-const returnError = (res) => res.status(400).send("Resoure not found");
 
 module.exports = router;
