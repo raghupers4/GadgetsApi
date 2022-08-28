@@ -6,19 +6,46 @@ const User = require("../models/User");
 const CartItem = require("../models/CartItem");
 const Order = require("../models/Order");
 const { verifyToken } = require("../middleware/auth");
+const {
+  validateUserSignupDetails,
+  validateUserProfileDetails,
+  validateUserLoginDetails,
+} = require("../middleware/validateuserinput");
+const {
+  SUCCESS_STATUS_CODE,
+  BAD_REQUEST_STATUS_CODE,
+  INTERNAL_SERVER_ERROR_STATUS_CODE,
+  NOT_FOUND_STATUS_CODE,
+  CONFLICT_STATUS_CODE,
+  CREATED_STATUS_CODE,
+} = require("../constants/statuscodes");
 
 router.get("/", async (req, res) => {
   try {
     const users = await User.find();
-    res.json(users);
+    if (users) {
+      res.status(SUCCESS_STATUS_CODE).json(users);
+    } else {
+      res.json(SUCCESS_STATUS_CODE).json([]);
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ error: error.message });
   }
 });
 
 const getUserCart = async (user_id) => {
-  const items = await CartItem.find({ user: user_id });
+  const items = await CartItem.find({ user: user_id }).populate({
+    path: "product",
+    select: ["name", "imageUrl", "price", "isDiscounted", "discountedPrice"],
+  });
   return items;
+};
+
+const getCartItemsCount = async (userId) => {
+  let cartItems = await CartItem.find({ user: userId }).lean();
+  return cartItems?.length;
 };
 
 const getUserPlacedOrders = async (user_id) => {
@@ -42,82 +69,74 @@ const getUserReturnedOrders = async (user_id) => {
   return returnedOrders || [];
 };
 // GET speicific user route
-router.get("/:id", async (req, res, next) => {
+router.get("/:id", verifyToken, async (req, res, next) => {
   try {
     // we have to handle the cart and orders routes as below
     // This is because by default express will redirect /users/cart to /users/:id
     // expressconsiders only one main get /users/param request per route
     // so we need to check params and then tranfer the route accordingly as below
     if (req.params.id === "cart") {
-      // handling /users/cart route
+      // handling /user/cart route
       return next();
     }
     if (req.params.id === "orders") {
-      // handling /users/orders route
+      // handling /user/orders route
       return next();
     }
     let user = await User.findById(req.params.id);
     if (user) {
-      // to append cartItems and orders we have to convert mongodb returned document to plain JS object using .toObject()
+      // to append cartItems count we have to convert mongodb returned document to plain JS object using .toObject()
       user = user.toObject();
-      // get cart items and orders placed
-      const cartItems = await getUserCart(user);
-      const placedOrders = await getUserPlacedOrders(user);
-      const cancelledOrders = await getUserCancelledOrders(user);
-      const returnedOrders = await getUserReturnedOrders(user);
-      user.cart = cartItems && cartItems.length > 0 ? cartItems : [];
-      user.placedOrders =
-        placedOrders && placedOrders.length > 0 ? placedOrders : [];
-      user.cancelledOrders =
-        cancelledOrders && cancelledOrders.length > 0 ? cancelledOrders : [];
-      user.returnedOrders =
-        returnedOrders && returnedOrders.length > 0 ? returnedOrders : [];
-      return res.json(user);
+      // get cart items count
+      user.cartItemsCount = await getCartItemsCount(req.user.userId);
+      return res.status(SUCCESS_STATUS_CODE).json(user);
     }
-    return res.status(400).json();
+    return res.status(BAD_REQUEST_STATUS_CODE).json();
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error?.message });
   }
 });
 
 // POST route
-router.post("/register", async (req, res) => {
+router.post("/signup", validateUserSignupDetails, async (req, res) => {
   try {
-    const { email, phonenum } = req.body;
+    const { email, phoneNum } = req.body;
     const existingUserWithSameEmail = await User.findOne({ email });
     if (existingUserWithSameEmail) {
-      return res.status(409).json({
+      return res.status(CONFLICT_STATUS_CODE).json({
         message:
           "User already exists with the same email. Please login or create account with different email",
       });
     }
-    const existingUserWithSamePhoneNum = await User.findOne({ phonenum });
-    if (existingUserWithSamePhoneNum) {
-      return res.status(409).json({
-        message:
-          "This mobile number is already in use by another user. Please use different number.",
-      });
-    }
-
+    // const existingUserWithSamePhoneNum = await User.findOne({ phoneNum });
+    // if (existingUserWithSamePhoneNum) {
+    //   return res.status(CONFLICT_STATUS_CODE).json({
+    //     message:
+    //       "This mobile number is already in use by another user. Please use different number.",
+    //   });
+    // }
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
     const user = await User.create({
       name: req.body.name,
       email,
       password: hashedPassword,
-      phonenum: req.body.phonenum,
+      phoneNum,
       address: req.body.address,
-      paymentcard: req.body.paymentcard,
     });
     const newUser = await user.save();
-    res.status(201).json(newUser);
+    res.status(CREATED_STATUS_CODE).json(newUser);
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error.message });
   }
 });
 
 // login route
-router.post("/login", async (req, res) => {
+router.post("/login", validateUserLoginDetails, async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
@@ -125,29 +144,41 @@ router.post("/login", async (req, res) => {
       // check password
       const isPasswordValid = await bcrypt.compare(password, user.password);
       if (!isPasswordValid) {
-        return res.status(400).json({ message: "Invalid password" });
+        return res
+          .status(BAD_REQUEST_STATUS_CODE)
+          .json({ message: "Invalid email or password" });
       }
-      const payload = { user_id: user._id, email };
+      const payload = { userId: user._id };
       const accessToken = await generateToken(payload);
       if (!accessToken) {
-        return res.status(500).json({ message: "Token not generated" });
+        return res
+          .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+          .json({ message: "Error in generating token. Please try later." });
       }
-      const cartItems = await getUserCart(user._id);
+      const cartItemsCount = await getCartItemsCount(user._id);
       user = user.toObject();
       // no need of sending password back to the user
       delete user["password"];
-      res.status(200).json({ user, accessToken, cartItems });
+      res
+        .status(SUCCESS_STATUS_CODE)
+        .json({ user, accessToken, cartItemsCount });
     } else {
       // Incorrect email id
-      res.status(400).json({ message: "Invalid email id" });
+      res
+        .status(BAD_REQUEST_STATUS_CODE)
+        .json({ message: "Invalid email or password" });
     }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error.message });
   }
 });
 
 const generateToken = async (payload) => {
-  const accessToken = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET);
+  const accessToken = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
+    expiresIn: "30m",
+  });
   return accessToken;
 };
 
@@ -169,59 +200,90 @@ const getUser = async (req, res, next) => {
 };
 
 // PUT route
-router.put("/:id", async (req, res) => {
+router.put("/", [validateUserProfileDetails, verifyToken], async (req, res) => {
   try {
     const updatedUser = { ...req.body };
-    console.log(updatedUser);
-    await User.findByIdAndUpdate(req.params.id, updatedUser);
-    res.json(updatedUser);
+    if (updatedUser?.password) {
+      const salt = await bcrypt.genSalt(10);
+      const hashedPassword = await bcrypt.hash(updatedUser.password, salt);
+      updatedUser.password = hashedPassword;
+    }
+    await User.findByIdAndUpdate(req.user.userId, updatedUser);
+    let user = await User.findById(req.user.userId);
+    user = user.toObject();
+    delete user["password"];
+    res.status(SUCCESS_STATUS_CODE).json(user);
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error.message });
   }
 });
 
 // PATCH route
-router.patch("/:id", verifyToken, async (req, res) => {
-  try {
-    if (req.body.name) {
-      res.user.name = req.body.name;
+router.patch(
+  "/",
+  [validateUserProfileDetails, verifyToken],
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user.userId);
+      if (req.body.name) {
+        user.name = req.body.name;
+      }
+      if (req.body.password) {
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(updatedUser.password, salt);
+        user.password = hashedPassword;
+      }
+      if (req.body.address) {
+        user.address = req.body.address;
+      }
+      if (req.body.phoneNum) {
+        user.phoneNum = req.body.phoneNum;
+      }
+      if (req.body.paymentcard) {
+        user.paymentcard = req.body.paymentcard;
+      }
+      await user.save();
+      user = user.toObject();
+      delete user["password"];
+      res.status(SUCCESS_STATUS_CODE).json(user);
+    } catch (error) {
+      res
+        .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+        .json({ message: error.message });
     }
-    if (req.body.password) {
-      res.user.password = req.body.password;
-    }
-    if (req.body.address) {
-      res.user.address = req.body.address;
-    }
-    if (req.body.phonenum) {
-      res.user.phonenum = req.body.phonenum;
-    }
-    if (req.body.paymentcard) {
-      res.user.paymentcard = req.body.paymentcard;
-    }
-    await res.user.save();
-    res.json(res.user);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
   }
-});
+);
 
 // REMOVE route
-router.delete("/:id", getUser, async (req, res) => {
-  try {
-    await res.user.remove();
-    res.json({ message: `Removed user with id ${req.params.id}` });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// router.delete("/:id", verifyToken, async (req, res) => {
+//   try {
+//     const user = await User.find(req.user.userId);
+//     await user.remove();
+//     res
+//       .status(SUCCESS_STATUS_CODE)
+//       .json({ message: `Removed user with id ${req.params.id}` });
+//   } catch (error) {
+//     res
+//       .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+//       .json({ message: error.message });
+//   }
+// });
 
-// CART ROUTES
+// GET user cart
 router.get("/cart", verifyToken, async (req, res) => {
   try {
-    const cartItems = await getUserCart(req.user.user_id);
-    res.json(cartItems);
+    const cartItems = await getUserCart(req.user.userId);
+    if (cartItems) {
+      res.json(cartItems);
+    } else {
+      res.json([]);
+    }
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error.message });
   }
 });
 
@@ -229,59 +291,6 @@ const getCartItem = async (cartItemId) => {
   const cartItem = await CartItem.findById(cartItemId);
   return cartItem;
 };
-
-// POST cart route
-router.post("/cart", verifyToken, async (req, res) => {
-  try {
-    const cart = await CartItem.create({
-      productId: req.body.productId,
-      productName: req.body.productName,
-      imageUrl: req.body.imageUrl,
-      productPrice: req.body.productPrice,
-      quantity: req.body.quantity,
-      user: req.user.user_id,
-    });
-    await cart.save();
-    res.status(201).json(cart);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
-// PATCH cart route
-router.patch("/cart/:id", verifyToken, async (req, res) => {
-  try {
-    const cartItem = await getCartItem(req.params.id);
-    if (cartItem === null) {
-      return res.status(404).json({
-        message: `Cannot find the cart item with id ${req.params.id}`,
-      });
-    }
-    if (req.body.quantity) {
-      cartItem.quantity = req.body.quantity;
-    }
-    await cartItem.save();
-    res.json(cartItem);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
-
-// REMOVE cart route
-router.delete("/cart/:id", verifyToken, async (req, res) => {
-  try {
-    const cartItem = await getCartItem(req.params.id);
-    if (cartItem === null) {
-      return res.status(404).json({
-        message: `Cannot find the cart item with id ${req.params.id}`,
-      });
-    }
-    await cartItem.remove();
-    res.json({ message: `Removed the cart item with id ${req.params.id}` });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
 
 // ORDERS ROUTES
 router.get("/orders", verifyToken, async (req, res) => {

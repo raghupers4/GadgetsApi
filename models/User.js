@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const addressSchema = new Schema({
-  addressLine: {
+  street: {
     type: String,
     required: true,
   },
@@ -38,7 +38,6 @@ const UserSchema = new Schema({
     type: Number,
     required: true,
     unique: true,
-    length: 10,
   },
   address: {
     type: addressSchema,
