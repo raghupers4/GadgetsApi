@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const addressSchema = new Schema({
-  addressLine: {
+  street: {
     type: String,
     required: true,
   },
@@ -35,6 +35,17 @@ const orderSchema = new Schema({
     type: String,
     required: true,
     default: "credit card",
+  },
+  discount: {
+    type: Number,
+  },
+  subTotal: {
+    type: Number,
+    required: true,
+  },
+  tax: {
+    type: Number,
+    required: true,
   },
   totalPrice: {
     type: Number,

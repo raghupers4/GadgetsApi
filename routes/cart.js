@@ -5,6 +5,7 @@ const {
   INTERNAL_SERVER_ERROR_STATUS_CODE,
   NOT_FOUND_STATUS_CODE,
   BAD_REQUEST_STATUS_CODE,
+  CREATED_STATUS_CODE,
 } = require("../constants/statuscodes");
 const { verifyToken } = require("../middleware/auth");
 const {
@@ -50,7 +51,7 @@ router.post("/", [validateUserAddedCart, verifyToken], async (req, res) => {
       quantity: req.body.quantity,
     });
     await cartItem.save();
-    res.status(SUCCESS_STATUS_CODE).json(cartItem);
+    res.status(CREATED_STATUS_CODE).json(cartItem);
   } catch (error) {
     res
       .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
