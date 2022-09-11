@@ -32,7 +32,7 @@ const validateUserSignupDetails = (req, res, next) => {
   //     .withMessage("Password is required")
   //     .isLength({ min: 6 })
   //     .withMessage("Password requires atleast 6 characters");
-  const { name, email, password, phoneNum } = req.body;
+  const { name, email, password, phoneNum, address } = req.body;
   if (!name) {
     errors.push({ message: "Name is required", param: "name" });
   } else if (!isValidName(name)) {
@@ -67,6 +67,14 @@ const validateUserSignupDetails = (req, res, next) => {
       param: "phoneNum",
     });
   }
+  if (!address) {
+    errors.push({
+      message: "address is required",
+      param: "address",
+    });
+  } else {
+    errors.push(...validateAddress(address));
+  }
   if (errors.length > 0) {
     return res.status(BAD_REQUEST_STATUS_CODE).json({ errors });
   } else {
@@ -76,7 +84,7 @@ const validateUserSignupDetails = (req, res, next) => {
 
 const validateUserProfileDetails = (req, res, next) => {
   const errors = [];
-  const { name, password, phoneNum } = req.body;
+  const { name, password, phoneNum, address } = req.body;
   if (name && !isValidName(name)) {
     errors.push({
       message: "Only alphabets are allowed for name",
@@ -99,6 +107,9 @@ const validateUserProfileDetails = (req, res, next) => {
       message: "Length of phone number should be 10 digits",
       param: "phoneNum",
     });
+  }
+  if (address) {
+    errors.push(...validateAddress(address));
   }
   if (errors.length > 0) {
     return res.status(BAD_REQUEST_STATUS_CODE).json({ errors });
@@ -227,11 +238,65 @@ const isValidRating = (rating) => {
 
 const validateOrder = (req, res, next) => {
   const errors = [];
-  if (!req.body.orderItems) {
+  let { orderItems, shippingAddress } = req.body;
+  if (!orderItems) {
     errors.push({
       message: "Atleast one order item is required to place a order",
       param: "orderItems",
     });
+  } else {
+    if (orderItems?.length > 0) {
+      orderItems.forEach((item) => {
+        const { productId, unitPrice, quantity } = item;
+        if (!mongoose.isValidObjectId(productId)) {
+          errors.push({
+            message: `productId: ${productId} is not valid`,
+            param: "productId",
+          });
+        }
+        if (!quantity) {
+          errors.push({
+            message: `quantity is required for the productId: ${productId}`,
+            param: "quantity",
+          });
+        } else if (
+          quantity &&
+          !(Number(quantity) > 0 && Number(quantity) < 6 && quantity % 1 === 0)
+        ) {
+          errors.push({
+            message: `quantity accepts only positive integers from 1-5 for the productId: ${productId}`,
+            param: "quantity",
+          });
+        }
+
+        if (!unitPrice) {
+          errors.push({
+            message: `unitPrice is required for the productId: ${productId}`,
+            param: "unitPrice",
+          });
+        } else if (!(Number(unitPrice) > 0)) {
+          errors.push({
+            message: `unitPrice should be a positive decimal value for the productId: ${productId}`,
+            param: "unitPrice",
+          });
+        }
+      });
+    } else {
+      errors.push({
+        message: "Atleast one order item is required to place a order",
+        param: "orderItems",
+      });
+    }
+  }
+
+  if (!shippingAddress) {
+    errors.push({
+      message: "shippingAddress is required for the order",
+      param: "shippingAddress",
+    });
+  } else {
+    const addressErrors = validateAddress(shippingAddress);
+    errors.push(...addressErrors);
   }
 
   if (errors.length > 0) {
@@ -239,6 +304,36 @@ const validateOrder = (req, res, next) => {
   } else {
     next();
   }
+};
+
+const validateAddress = (address) => {
+  const { street, city, province, postalCode } = address;
+  const errors = [];
+  if (!street) {
+    errors.push({
+      message: "street is required for the address",
+      param: "street",
+    });
+  }
+  if (!city) {
+    errors.push({
+      message: "city is required for the address",
+      param: "city",
+    });
+  }
+  if (!province) {
+    errors.push({
+      message: "province is required for the address",
+      param: "province",
+    });
+  }
+  if (!postalCode) {
+    errors.push({
+      message: "postalCode is required for the address",
+      param: "postalCode",
+    });
+  }
+  return errors;
 };
 
 const defaultExports = {

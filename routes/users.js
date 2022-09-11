@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const CartItem = require("../models/CartItem");
 const Order = require("../models/Order");
+const OrderItem = require("../models/OrderItem");
 const { verifyToken } = require("../middleware/auth");
 const {
   validateUserSignupDetails,
@@ -153,7 +154,9 @@ router.post("/login", validateUserLoginDetails, async (req, res) => {
       if (!accessToken) {
         return res
           .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
-          .json({ message: "Error in generating token. Please try later." });
+          .json({
+            message: "Error in generating the token. Please try later.",
+          });
       }
       const cartItemsCount = await getCartItemsCount(user._id);
       user = user.toObject();
@@ -177,7 +180,7 @@ router.post("/login", validateUserLoginDetails, async (req, res) => {
 
 const generateToken = async (payload) => {
   const accessToken = await jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
-    expiresIn: "30m",
+    expiresIn: "45m",
   });
   return accessToken;
 };
@@ -287,85 +290,97 @@ router.get("/cart", verifyToken, async (req, res) => {
   }
 });
 
-const getCartItem = async (cartItemId) => {
-  const cartItem = await CartItem.findById(cartItemId);
-  return cartItem;
-};
-
-// ORDERS ROUTES
+// GET user orders
 router.get("/orders", verifyToken, async (req, res) => {
   try {
-    const placedOrders = await getUserPlacedOrders(req.user.user_id);
-    const cancelledOrders = await getUserCancelledOrders(req.user.user_id);
-    const returnedOrders = await getUserReturnedOrders(req.user.user_id);
-    res.json({ placedOrders, cancelledOrders, returnedOrders });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
-
-const getOrder = async (orderid) => {
-  const specificOrder = await Order.findById(orderid);
-  return specificOrder || null;
-};
-
-router.post("/orders", verifyToken, async (req, res) => {
-  try {
-    const order = new Order({
-      productId: req.body.productId,
-      orderedDate: req.body.orderedDate,
-      paymentMethod: req.body.paymentMethod,
-      total: req.body.total,
-      isCancelled: req.body.isCancelled,
-      shippingAddress: req.body.shippingAddress,
-      user: req.user.user_id,
+    let userOrders = await Order.find({
+      user: req.user.userId,
     });
-    await order.save();
-    res.json(order);
+    for (let i = 0; i < userOrders.length; i++) {
+      userOrders[i] = userOrders[i].toObject();
+      let orderItems = await OrderItem.find({
+        orderId: userOrders[i]?._id,
+      }).populate({
+        path: "product",
+        select: [
+          "name",
+          "imageUrl",
+          "price",
+          "isDiscounted",
+          "discountedPrice",
+        ],
+      });
+      userOrders[i]["orderItems"] = orderItems;
+    }
+    if (userOrders?.length > 0) {
+      res.status(SUCCESS_STATUS_CODE).json(userOrders);
+    } else {
+      res.status(SUCCESS_STATUS_CODE).json(userOrders);
+    }
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res
+      .status(INTERNAL_SERVER_ERROR_STATUS_CODE)
+      .json({ message: error.message });
   }
 });
 
-// PATCH order route
-router.patch("/orders/:id", verifyToken, async (req, res) => {
-  try {
-    const order = await getOrder(req.params.id);
-    if (order === null) {
-      return res.status(404).json({
-        message: `Cannot find the order with id: ${req.params.id}`,
-      });
-    }
-    if (req.body.isCancelled) {
-      order.isCancelled = req.body.isCancelled;
-    }
-    if (req.body.shippingAddress) {
-      order.shippingAddress = req.body.shippingAddress;
-    }
-    if (req.body.deliveredDate) {
-      order.deliveredDate = req.body.deliveredDate;
-    }
-    await order.save();
-    res.json(order);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-});
+// router.post("/orders", verifyToken, async (req, res) => {
+//   try {
+//     const order = new Order({
+//       productId: req.body.productId,
+//       orderedDate: req.body.orderedDate,
+//       paymentMethod: req.body.paymentMethod,
+//       total: req.body.total,
+//       isCancelled: req.body.isCancelled,
+//       shippingAddress: req.body.shippingAddress,
+//       user: req.user.user_id,
+//     });
+//     await order.save();
+//     res.json(order);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
 
-// REMOVE order route
-router.delete("/orders/:id", verifyToken, async (req, res) => {
-  try {
-    const order = await getOrder(req.params.id);
-    if (order === null) {
-      return res.status(404).json({
-        message: `Cannot find the order with id: ${req.params.id}`,
-      });
-    }
-    await order.remove();
-    res.json({ message: `Removed the order with id ${req.params.id}` });
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-});
+// // PATCH order route
+// router.patch("/orders/:id", verifyToken, async (req, res) => {
+//   try {
+//     const order = await getOrder(req.params.id);
+//     if (order === null) {
+//       return res.status(404).json({
+//         message: `Cannot find the order with id: ${req.params.id}`,
+//       });
+//     }
+//     if (req.body.isCancelled) {
+//       order.isCancelled = req.body.isCancelled;
+//     }
+//     if (req.body.shippingAddress) {
+//       order.shippingAddress = req.body.shippingAddress;
+//     }
+//     if (req.body.deliveredDate) {
+//       order.deliveredDate = req.body.deliveredDate;
+//     }
+//     await order.save();
+//     res.json(order);
+//   } catch (error) {
+//     res.status(400).json({ message: error.message });
+//   }
+// });
+
+// // REMOVE order route
+// router.delete("/orders/:id", verifyToken, async (req, res) => {
+//   try {
+//     const order = await getOrder(req.params.id);
+//     if (order === null) {
+//       return res.status(404).json({
+//         message: `Cannot find the order with id: ${req.params.id}`,
+//       });
+//     }
+//     await order.remove();
+//     res.json({ message: `Removed the order with id ${req.params.id}` });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
 
 module.exports = router;
